@@ -1,0 +1,44 @@
+name: Build Docker Image
+
+on:
+  pull_request:
+    branches:
+      - master
+  merge_group:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        image:
+          - variant: "3.14"
+          - variant: "3.15"
+          - variant: "3.16"
+          - variant: "3.17"
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Install @devcontainers/cli
+        run: npm install -g @devcontainers/cli
+
+      - name: Build image
+        run: |
+          devcontainer build \
+            --workspace-folder . \
+            --platform linux/amd64,linux/arm64 \
+            --output type=image
+        env:
+          VARIANT: ${{ matrix.image.variant }}
