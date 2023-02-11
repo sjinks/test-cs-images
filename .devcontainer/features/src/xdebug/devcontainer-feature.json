@@ -23,8 +23,5 @@
                 "trace"
             ]
         }
-    },
-    "installsAfter": [
-        "ghcr.io/sjinks/test-cs-images/features/php"
-    ]
+    }
 }

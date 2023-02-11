@@ -9,8 +9,5 @@
             "default": true,
             "description": "Enable memcached"
         }
-    },
-    "installsAfter": [
-        "ghcr.io/sjinks/test-cs-images/features/wordpress"
-    ]
+    }
 }

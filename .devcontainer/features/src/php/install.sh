@@ -193,7 +193,7 @@ setup_php81() {
 
     apk add --no-cache php81-dev gcc make libc-dev graphicsmagick-dev libtool graphicsmagick libgomp
     pecl81 channel-update pecl.php.net
-    pecl81 install channel://pecl.php.net/gmagick-2.0.6RC1 < /dev/null || true
+    pecl81 install channel://pecl.php.net/gmagick-2.0.6RC1 < /dev/null
     apk del --no-cache php81-dev gcc make libc-dev graphicsmagick-dev libtool
 
     echo "extension=gmagick.so" > /etc/php81/conf.d/40_gmagick.ini
@@ -265,7 +265,7 @@ setup_php82() {
 
     apk add --no-cache php82-dev@edgec gcc make libc-dev graphicsmagick-dev libtool graphicsmagick libgomp
     pecl82 channel-update pecl.php.net
-    pecl82 install channel://pecl.php.net/gmagick-2.0.6RC1 < /dev/null || true
+    pecl82 install channel://pecl.php.net/gmagick-2.0.6RC1 < /dev/null
     apk del --no-cache php82-dev gcc make libc-dev graphicsmagick-dev libtool
 
     echo "extension=gmagick.so" > /etc/php82/conf.d/40_gmagick.ini
@@ -321,9 +321,6 @@ case "${VERSION}" in
     ;;
 esac
 
-getent group www-data > /dev/null || addgroup -g 82 -S www-data
-getent passwd www-data > /dev/null || adduser -u 82 -D -S -G www-data -H www-data
-
 pecl update-channels
 rm -rf /tmp/pear ~/.pearrc
 
@@ -338,10 +335,7 @@ export PHP_USER
 # shellcheck disable=SC2016
 envsubst '$PHP_USER' < www.conf.tpl > "${PHP_INI_DIR}/php-fpm.d/www.conf"
 install -d -m 0750 -o "${PHP_USER}" -g adm /var/log/php-fpm
-install -m 0644 -o root -g root docker.conf zz-docker.conf "${PHP_INI_DIR}/php-fpm.d/"
-install -D -m 0755 -o root -g root service-run /etc/sv/php-fpm/run
-install -d -m 0755 -o root -g root /etc/service
-ln -sf /etc/sv/php-fpm /etc/service/php-fpm
+install -m 0644 docker.conf zz-docker.conf "${PHP_INI_DIR}/php-fpm.d/"
 
 if [ "${COMPOSER}" = "true" ]; then
     wget -q https://getcomposer.org/installer -O composer-setup.php

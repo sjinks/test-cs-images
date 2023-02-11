@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -eu
+exec 2>&1
+
+exec su-exec www-data:www-data /usr/local/bin/mailhog -cors-origin -storage memory -api-bind-addr 127.0.0.1:8025 -ui-bind-addr 127.0.0.1:8025 -smtp-bind-addr 127.0.0.1:10025

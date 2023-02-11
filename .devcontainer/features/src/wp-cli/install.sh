@@ -20,11 +20,7 @@ wget -q "${url}" -O /usr/local/bin/wp
 chmod 0755 /usr/local/bin/wp
 
 if [ -n "$(command -v php)" ]; then
-    if [ -z "${_REMOTE_USER}" ] || [ "${_REMOTE_USER}" = "root" ]; then
-        sudo -u www-data wp cli info || true
-    else
-        sudo -u "${_REMOTE_USER}" wp cli info || true
-    fi
+    wp cli info || true
 fi
 
 echo 'Done!'
