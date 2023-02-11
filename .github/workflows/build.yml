@@ -13,14 +13,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        image:
-          - variant: "3.14"
-          - variant: "3.15"
-          - variant: "3.16"
-          - variant: "3.17"
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -40,5 +32,3 @@ jobs:
             --workspace-folder . \
             --platform linux/amd64,linux/arm64 \
             --output type=image
-        env:
-          VARIANT: ${{ matrix.image.variant }}

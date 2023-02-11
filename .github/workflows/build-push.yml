@@ -18,17 +18,8 @@ env:
 
 jobs:
   build:
-    name: Build Alpine ${{ matrix.image.variant }} image
+    name: Build Alpine image
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        image:
-          - variant: "3.14"
-          - variant: "3.15"
-          - variant: "3.16"
-          - variant: "3.17"
-            latest: "true"
     permissions:
       contents: read
       packages: write
@@ -62,9 +53,6 @@ jobs:
           devcontainer build \
             --workspace-folder . \
             --platform linux/amd64,linux/arm64 \
-            --image-name=ghcr.io/${{ github.repository }}/base:${{ env.VERSION }}-alpine-${{ matrix.image.variant }} \
-            --image-name=ghcr.io/${{ github.repository }}/base:latest-alpine-${{ matrix.image.variant }} \
-            ${latest} \
+            --image-name=ghcr.io/${{ github.repository }}/alpine-base:${{ env.VERSION }} \
+            --image-name=ghcr.io/${{ github.repository }}/alpine-base:latest \
             --push
-        env:
-          VARIANT: ${{ matrix.image.variant }}

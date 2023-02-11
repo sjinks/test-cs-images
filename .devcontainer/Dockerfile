@@ -1,5 +1,4 @@
-ARG VARIANT=3.17
-FROM alpine:${VARIANT}
+FROM alpine:3.17
 
 ARG USERNAME=vscode
 ARG USER_UID=1000
@@ -51,5 +50,9 @@ RUN apk add --no-cache \
     chmod 0440 "/etc/sudoers.d/${USERNAME}"
 
 ADD rootfs /
+
+ENV CHARSET UTF-8
+ENV LANG C.UTF-8
+ENV LC_COLLATE C
 
 ENTRYPOINT [ "/sbin/init" ]
