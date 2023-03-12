@@ -12,7 +12,7 @@ fi
 echo '(*) Installing MariaDB...'
 
 if [ -z "${_REMOTE_USER}" ] || [ "${_REMOTE_USER}" = "root" ]; then
-    MARIADB_USER=www-data
+    MARIADB_USER=mysql
 else
     MARIADB_USER="${_REMOTE_USER}"
 fi
