@@ -33,6 +33,6 @@ install -d -m 0755 -o root -g root /etc/service
 ln -sf /etc/sv/mariadb /etc/service/mariadb
 
 # shellcheck disable=SC2016
-envsubst '$MARIADB_USER' '$MARIADB_DATADIR' < conf-mariadb.tpl > /etc/conf.d/mariadb
+envsubst '$MARIADB_USER $MARIADB_DATADIR' < conf-mariadb.tpl > /etc/conf.d/mariadb
 
 echo 'Done!'
