@@ -9,7 +9,7 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-echo '(*) Installing WordPress...'
+echo '(*) Downloading WordPress...'
 
 if [ -z "${_REMOTE_USER}" ] || [ "${_REMOTE_USER}" = "root" ]; then
     USER=www-data
@@ -24,5 +24,12 @@ install -m 0644 -o root -g root wp-cli.yaml /etc/wp-cli
 install -d -o "${USER}" -g "${USER}" -m 0755 /wp
 cp -a wp/* /wp && chown -R "${USER}:${USER}" /wp/* && chmod -R 0755 /wp/* && find /wp -type f -exec chmod 0644 {} \;
 su-exec "${USER}:${USER}" wp core download --path=/wp --skip-content --version="${VERSION}"
+
+if [ "${MOVEUPLOADSTOWORKSPACES}" != 'true' ]; then
+    install -d -o "${USER}" -g "${USER}" -m 0755 /wp/wp-content/uploads
+else
+    install -d -o "${USER}" -g "${USER}" -m 0755 /workspaces/uploads
+    ln -sf /workspaces/uploads /wp/wp-content/uploads
+fi
 
 echo 'Done!'
