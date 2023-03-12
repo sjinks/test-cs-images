@@ -9,6 +9,12 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
+if [ -z "${_REMOTE_USER}" ] || [ "${_REMOTE_USER}" = "root" ]; then
+    USER=nginx
+else
+    USER="${_REMOTE_USER}"
+fi
+
 echo '(*) Installing wp-cli...'
 if [ "${NIGHTLY}" = "true" ]; then
     url="https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli-nightly.phar"
@@ -20,11 +26,7 @@ wget -q "${url}" -O /usr/local/bin/wp
 chmod 0755 /usr/local/bin/wp
 
 if [ -n "$(command -v php)" ]; then
-    if [ -z "${_REMOTE_USER}" ] || [ "${_REMOTE_USER}" = "root" ]; then
-        sudo -u www-data wp cli info || true
-    else
-        sudo -u "${_REMOTE_USER}" wp cli info || true
-    fi
+    sudo -u "${USER}" wp cli info || true
 fi
 
 echo 'Done!'
