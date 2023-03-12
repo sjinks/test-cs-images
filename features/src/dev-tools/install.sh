@@ -18,6 +18,6 @@ fi
 echo '(*) Installing Dev Tools...'
 
 install -d -D -m 0755 -o "${WEB_USER}" -g "${WEB_USER}" /wp/wp-content/mu-plugins
-install -m 0644 -o "${WEB_USER}" -g "${WEB_USER}" dev-env-plugins.php /wp/wp-content/mu-plugins/dev-env-plugins.php
+install -m 0644 -o "${WEB_USER}" -g "${WEB_USER}" dev-env-plugin.php /wp/wp-content/mu-plugins/dev-env-plugin.php
 
 echo 'Done!'
