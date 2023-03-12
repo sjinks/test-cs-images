@@ -1,6 +1,6 @@
 [www]
-user = www-data
-group = www-data
+user = ${PHP_USER}
+group = ${PHP_USER}
 listen = 127.0.0.1:9000
 pm = dynamic
 pm.max_children = 5
