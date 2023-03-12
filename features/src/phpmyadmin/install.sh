@@ -18,9 +18,12 @@ if [ "${ENABLED}" = "true" ]; then
         WEB_USER="${_REMOTE_USER}"
     fi
 
-    apk add --no-cache phpmyadmin
+    install -D -d -m 0755 -o root -g root /usr/share/webapps/phpmyadmin /etc/phpmyadmin
+    wget -q https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-all-languages.tar.gz -O - | tar --strip-components=1 -zxm -f - -C /usr/share/webapps/phpmyadmin
+
+    install -m 0640 nginx-phpmyadmin.conf /etc/nginx/http.d/phpmyadmin.conf
     install -d -m 0777 -o "${WEB_USER}" -g "${WEB_USER}" /usr/share/webapps/phpmyadmin/tmp
     install -m 0640 -o "${WEB_USER}" -g "${WEB_USER}" config.inc.php /etc/phpmyadmin/config.inc.php
-    install -m 0640 nginx-phpmyadmin.conf /etc/nginx/http.d/phpmyadmin.conf
+    ln -sf /etc/phpmyadmin/config.inc.php /usr/share/webapps/phpmyadmin/config.inc.php
     echo 'Done!'
 fi

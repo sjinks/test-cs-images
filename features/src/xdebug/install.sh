@@ -87,7 +87,6 @@ if [ "${ENABLED}" = "true" ]; then
         ;;
     esac
 
-    apk add --no-cache --force-overwrite php8-pecl-xdebug
     sed "s/^xdebug\\.mode.*\$/xdebug.mode = ${MODE}/" xdebug.ini > "${DIR}/conf.d/xdebug.ini"
     install -m 0755 xdebug-disable xdebug-set-mode /usr/local/bin
 
