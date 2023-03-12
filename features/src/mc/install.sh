@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -ex
+set -e
 
 PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin
 
