@@ -26,7 +26,7 @@ else
 fi
 
 apk add --no-cache mariadb-client mariadb
-rm -f /var/lib/mysql
+rmdir /var/lib/mysql
 
 install -D -m 0755 -o root -g root service-run /etc/sv/mariadb/run
 install -d -m 0755 -o root -g root /etc/service
