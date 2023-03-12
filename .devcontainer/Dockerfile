@@ -43,7 +43,7 @@ RUN apk add --no-cache \
     strace \
     mandoc man-pages \
     git \
-    su-exec && \
+    su-exec gettext && \
     ln -sf /sbin/runit-init /sbin/init && \
     groupadd --gid "${USER_GID}" "${USERNAME}" && \
     useradd -s /bin/bash --uid "${USER_UID}" --gid "${USER_GID}" -m "${USERNAME}" && \

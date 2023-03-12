@@ -1,8 +1,8 @@
 {
     "id": "php",
     "name": "PHP",
-    "description": "Sets up PHP into the Dev Environment",
-    "version": "1.0.1",
+    "description": "Installs PHP into the Dev Environment",
+    "version": "1.0.2",
     "containerEnv": {
         "PHP_INI_DIR": "/etc/php",
         "COMPOSER_ALLOW_SUPERUSER": "1"

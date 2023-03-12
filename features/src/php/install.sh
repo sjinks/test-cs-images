@@ -14,7 +14,7 @@ setup_php74() {
     fi
 
     apk add --no-cache \
-        libssl3@edgem icu-libs@edgem icu-data-full@edgem ghostscript gettext \
+        libssl3@edgem icu-libs@edgem icu-data-full@edgem ghostscript \
         php7@edget php7-fpm@edget php7-pear@edget \
         php7-pecl-apcu@edget \
         php7-bcmath@edget \
@@ -80,7 +80,7 @@ setup_php80() {
     fi
 
     apk add --no-cache \
-        icu-data-full@edgem icu-libs@edgem libssl3@edgem ghostscript gettext \
+        icu-data-full@edgem icu-libs@edgem libssl3@edgem ghostscript \
         php8@edget \
         php8-fpm@edget \
         php8-pear@edget \
@@ -145,7 +145,7 @@ setup_php81() {
     fi
 
     apk add --no-cache \
-        icu-data-full ghostscript gettext \
+        icu-data-full ghostscript \
         php81 php81-fpm php81-pear \
         php81-pecl-apcu \
         php81-bcmath \
@@ -218,7 +218,7 @@ setup_php82() {
     fi
 
     apk add --no-cache \
-        icu-data-full ghostscript gettext \
+        icu-data-full ghostscript \
         php82@edgec php82-fpm@edgec php82-pear@edgec \
         php82-pecl-apcu@edgec \
         php82-bcmath@edgec \
