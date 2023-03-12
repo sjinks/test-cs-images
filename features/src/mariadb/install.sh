@@ -14,14 +14,12 @@ echo '(*) Installing MariaDB...'
 if [ -z "${_REMOTE_USER}" ] || [ "${_REMOTE_USER}" = "root" ]; then
     MARIADB_USER=www-data
 else
-    # shellcheck disable=SC2034
     MARIADB_USER="${_REMOTE_USER}"
 fi
 
 if [ "${INSTALLDATABASETOWORKSPACES}" != 'true' ]; then
     MARIADB_DATADIR=/var/lib/mysql
 else
-    # shellcheck disable=SC2034
     MARIADB_DATADIR=/workspaces/mysql-data
 fi
 
@@ -32,6 +30,8 @@ install -D -m 0755 -o root -g root service-run /etc/sv/mariadb/run
 install -d -m 0755 -o root -g root /etc/service
 ln -sf /etc/sv/mariadb /etc/service/mariadb
 
+export MARIADB_USER
+export MARIADB_DATADIR
 # shellcheck disable=SC2016
 envsubst '$MARIADB_USER $MARIADB_DATADIR' < conf-mariadb.tpl > /etc/conf.d/mariadb
 
