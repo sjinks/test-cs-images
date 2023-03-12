@@ -9,7 +9,7 @@ if [ -f /etc/conf.d/nginx ]; then
     . /etc/conf.d/nginx
 fi
 
-: "${NGINX_USER:=www-data}"
+: "${NGINX_USER:=nginx}"
 
 COMMAND=/usr/sbin/nginx
 PID_FILE=/run/nginx/nginx.pid

@@ -12,7 +12,7 @@ fi
 echo '(*) Installing nginx...'
 
 if [ -z "${_REMOTE_USER}" ] || [ "${_REMOTE_USER}" = "root" ]; then
-    NGINX_USER=www-data
+    NGINX_USER=nginx
 else
     NGINX_USER="${_REMOTE_USER}"
 fi
