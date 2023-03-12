@@ -1,6 +1,6 @@
 {
-    "name": "wp-cli",
-    "id": "WP CLI",
+    "id": "wp-cli",
+    "name": "WP CLI",
     "version": "1.0.0",
     "description": "Sets up wp-cli into the Dev Environment",
     "containerEnv": {

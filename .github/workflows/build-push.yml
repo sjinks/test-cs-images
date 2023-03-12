@@ -17,7 +17,7 @@ env:
   VERSION: "1.0"
 
 jobs:
-  build:
+  build-image:
     name: Build Alpine image
     runs-on: ubuntu-latest
     permissions:
@@ -56,3 +56,26 @@ jobs:
             --image-name=ghcr.io/${{ github.repository }}/alpine-base:${{ env.VERSION }} \
             --image-name=ghcr.io/${{ github.repository }}/alpine-base:latest \
             --push
+
+  build-features:
+    name: Build features
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Log in to GitHub Docker Registry
+        uses: docker/login-action@v2
+        with:
+          registry: https://ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install @devcontainers/cli
+        run: npm install -g @devcontainers/cli
+
+      - name: Publish features
+        run: devcontainer features publish features/src --namespace "${{ github.repository }}"
