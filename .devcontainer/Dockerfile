@@ -42,7 +42,8 @@ RUN apk add --no-cache \
     shadow \
     strace \
     mandoc man-pages \
-    git && \
+    git \
+    su-exec && \
     ln -sf /sbin/runit-init /sbin/init && \
     groupadd --gid "${USER_GID}" "${USERNAME}" && \
     useradd -s /bin/bash --uid "${USER_UID}" --gid "${USER_GID}" -m "${USERNAME}" && \
