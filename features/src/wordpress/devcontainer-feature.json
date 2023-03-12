@@ -2,7 +2,7 @@
     "id": "wordpress",
     "name": "WordPress",
     "description": "Sets up WordPress into the Dev Environment",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "containerEnv": {
         "WP_CLI_CONFIG_PATH": "/etc/wp-cli/wp-cli.yaml"
     },
@@ -18,6 +18,6 @@
         }
     },
     "installsAfter": [
-        "ghcr.io/sjinks/test-cs-images/features/wp-cli"
+        "ghcr.io/sjinks/test-cs-images/wp-cli"
     ]
 }
