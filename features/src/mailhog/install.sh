@@ -9,6 +9,12 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
+if [ -z "${_REMOTE_USER}" ] || [ "${_REMOTE_USER}" = "root" ]; then
+    MAILHOG_USER=nobody
+else
+    MAILHOG_USER="${_REMOTE_USER}"
+fi
+
 if [ "${ENABLED}" = "true" ]; then
     echo '(*) Installing MailHog...'
 
@@ -29,6 +35,10 @@ if [ "${ENABLED}" = "true" ]; then
     install -D -m 0755 -o root -g root service-run /etc/sv/mailhog/run
     install -d -m 0755 -o root -g root /etc/service
     ln -sf /etc/sv/mailhog /etc/service/mailhog
+
+    export MAILHOG_USER
+    # shellcheck disable=SC2016
+    envsubst '$MAILHOG_USER' < conf-mailhog.tpl > /etc/conf.d/mailhog
 
     echo 'Done!'
 fi
