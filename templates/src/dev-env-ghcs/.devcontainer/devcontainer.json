@@ -1,0 +1,89 @@
+{
+    "name": "VIP Development Environment",
+    "image": "ghcr.io/sjinks/test-cs-images/alpine-base:latest",
+    "overrideCommand": false,
+    "forwardPorts": [80, 81, 8025],
+    "portsAttributes": {
+        "80": {
+            "label": "Application",
+            "onAutoForward": "notify",
+            "elevateIfNeeded": true
+        },
+        "81": {
+            "label": "phpMyAdmin",
+            "onAutoForward": "notify",
+            "elevateIfNeeded": true
+        },
+        "8025": {
+            "label": "MailHog",
+            "onAutoForward": "notify"
+        },
+        "1025": {
+            "label": "MailHog SMTP",
+            "onAutoForward": "ignore"
+        },
+        "3306": {
+            "label": "MySQL",
+            "onAutoForward": "ignore"
+        },
+        "9000": {
+            "label": "php-fpm",
+            "onAutoForward": "ignore"
+        },
+        "9003": {
+            "label": "XDebug Client Port",
+            "onAutoForward": "notify"
+        }
+    },
+    "postCreateCommand": "/usr/local/bin/setup-wordpress.sh",
+    "features": {
+        // Mandatory features
+        "ghcr.io/sjinks/test-cs-images/nginx:1": {
+            "mediaRedirectURL": "${templateOption:mediaRedirectURL}"
+        },
+        "ghcr.io/sjinks/test-cs-images/php:1": {
+            "version": "${templateOption:phpVersion}",
+            "composer": true
+        },
+        "ghcr.io/sjinks/test-cs-images/mariadb:1": {
+            "installDatabaseToWorkspaces": "${templateOption:persistMariaDBDatabases}"
+        },
+        "ghcr.io/sjinks/test-cs-images/wordpress:1": {
+            "version": "${templateOption:wordpressVersion}",
+            "moveUploadsToWorkspaces": "${templateOption:persistWordPressUploads}",
+            "multisite": "${templateOption:wordpressMultisite}",
+            "multisiteStyle": "subdirectory"
+        },
+        "ghcr.io/sjinks/test-cs-images/wp-cli:1": {
+            "nightly": "${templateOption:wpcliNightly}"
+        },
+        "ghcr.io/sjinks/test-cs-images/vip-go-mu-plugins:1": {
+            "enabled": true,
+            "retainGit": false
+        },
+        "ghcr.io/sjinks/test-cs-images/dev-tools:1": {},
+        // Recommended features
+        "ghcr.io/sjinks/test-cs-images/memcached:1": {
+            "enabled": "${templateOption:memcachedEnabled}"
+        },
+        "ghcr.io/sjinks/test-cs-images/vip-cli:1": {
+            "enabled": "${templateOption:vipCliEnabled}"
+        },
+        // Tools
+        "ghcr.io/sjinks/test-cs-images/mailhog:1": {
+            "enabled": "${templateOption:mailhogEnabled}"
+        },
+        "ghcr.io/sjinks/test-cs-images/phpmyadmin:1": {
+            "enabled": "${templateOption:pmaEnabled}"
+        },
+        // Debugging
+        "ghcr.io/sjinks/test-cs-images/xdebug:1": {
+            "enabled": "${templateOption:xdebugEnabled}",
+            "mode": "${templateOption:xdebugMode}"
+        },
+        // Misc
+        "ghcr.io/sjinks/test-cs-images/mc:1": {
+            "enabled": "${templateOption:mcEnabled}"
+        }
+    }
+}
