@@ -29,6 +29,6 @@ jobs:
       - name: Build image
         run: |
           devcontainer build \
-            --workspace-folder . \
+            --workspace-folder images/src/alpine-base \
             --platform linux/amd64,linux/arm64 \
             --output type=image

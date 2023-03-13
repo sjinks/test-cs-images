@@ -45,13 +45,8 @@ jobs:
 
       - name: Build image
         run: |
-          if [ "${{ matrix.image.latest }}" = "true" ]; then
-            latest="--image-name=ghcr.io/${{ github.repository }}/base:latest-alpine"
-          else
-            latest=""
-          fi
           devcontainer build \
-            --workspace-folder . \
+            --workspace-folder images/src/alpine-base \
             --platform linux/amd64,linux/arm64 \
             --image-name=ghcr.io/${{ github.repository }}/alpine-base:${{ env.VERSION }} \
             --image-name=ghcr.io/${{ github.repository }}/alpine-base:latest \
