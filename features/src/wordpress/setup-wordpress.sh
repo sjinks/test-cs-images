@@ -107,3 +107,16 @@ elif [ "$site_exist_return_value" != 0 ] ; then
 else
     echo "WordPress already installed"
 fi
+
+if [ -n "${RepositoryName}" ]; then
+    base=/workspaces/${RepositoryName}
+else
+    base=$(pwd)
+fi
+
+for i in client-mu-plugins images languages plugins themes vip-config; do
+    if [ -e "${base}/${i}" ]; then
+        sudo rm -rf "/wp/wp-content/${i}"
+        sudo ln -sf "${base}/${i}" "/wp/wp-content/${i}"
+    fi
+done
