@@ -40,6 +40,9 @@
         "ghcr.io/sjinks/test-cs-images/dev-tools:1": {},
         "ghcr.io/sjinks/test-cs-images/mailhog:1": {},
         "ghcr.io/sjinks/test-cs-images/mariadb:1": {
+            // GHCS
+            // "installDatabaseToWorkspaces": true
+            // VSCode
             "installDatabaseToWorkspaces": false
         },
         "ghcr.io/sjinks/test-cs-images/mc:1": {
@@ -54,6 +57,9 @@
         "ghcr.io/sjinks/test-cs-images/vip-cli:1": {},
         "ghcr.io/sjinks/test-cs-images/vip-go-mu-plugins:1": {},
         "ghcr.io/sjinks/test-cs-images/wordpress:1": {
+            // GHCS
+            // "moveUploadsToWorkspaces": true,
+            // VSCode
             "moveUploadsToWorkspaces": false,
             "domain": "${localWorkspaceFolderBasename}.lndo.site"
         },
@@ -61,18 +67,6 @@
         "ghcr.io/sjinks/test-cs-images/xdebug:1": {}
     },
     // Only enable this for VSCode
-    // "mounts": [
-    //     {
-    //         "type": "volume",
-    //         "source": "wp-uploads",
-    //         "target": "/workspaces/uploads"
-    //     },
-    //     {
-    //         "type": "volume",
-    //         "source": "mysql-data",
-    //         "target": "/workspaces/mysql-data"
-    //     }
-    // ],
     "mounts": [
         {
             "type": "volume",
