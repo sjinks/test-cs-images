@@ -40,7 +40,7 @@
         "ghcr.io/sjinks/test-cs-images/dev-tools:1": {},
         "ghcr.io/sjinks/test-cs-images/mailhog:1": {},
         "ghcr.io/sjinks/test-cs-images/mariadb:1": {
-            "installDatabaseToWorkspaces": true
+            "installDatabaseToWorkspaces": false
         },
         "ghcr.io/sjinks/test-cs-images/mc:1": {
             "enabled": true
@@ -54,28 +54,40 @@
         "ghcr.io/sjinks/test-cs-images/vip-cli:1": {},
         "ghcr.io/sjinks/test-cs-images/vip-go-mu-plugins:1": {},
         "ghcr.io/sjinks/test-cs-images/wordpress:1": {
-            "moveUploadsToWorkspaces": true,
+            "moveUploadsToWorkspaces": false,
             "domain": "${localWorkspaceFolderBasename}.lndo.site"
         },
         "ghcr.io/sjinks/test-cs-images/wp-cli:1": {},
         "ghcr.io/sjinks/test-cs-images/xdebug:1": {}
     },
     // Only enable this for VSCode
+    // "mounts": [
+    //     {
+    //         "type": "volume",
+    //         "source": "wp-uploads",
+    //         "target": "/workspaces/uploads"
+    //     },
+    //     {
+    //         "type": "volume",
+    //         "source": "mysql-data",
+    //         "target": "/workspaces/mysql-data"
+    //     }
+    // ],
     "mounts": [
         {
             "type": "volume",
             "source": "wp-uploads",
-            "target": "/workspaces/uploads"
+            "target": "/wp/wp-content/uploads"
         },
         {
             "type": "volume",
             "source": "mysql-data",
-            "target": "/workspaces/mysql-data"
+            "target": "/var/lib/mysql"
         }
     ],
     // Only enable this for VSCode
     // To run traefik:
-    // docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -p 80:80 -p 443:443 -p 8088:8080 traefik:2.8 --api.insecure=true --providers.docker=true --entrypoints.http.address=:80 --entrypoints.https.address=:443
+    // docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -p 80:80 -p 443:443 -p 8088:8080 traefik:2.8 --api.insecure=true --providers.docker=true --providers.docker.exposedByDefault=false --entrypoints.http.address=:80 --entrypoints.https.address=:443
     "runArgs": [
         "-l", "traefik.enable=true",
 

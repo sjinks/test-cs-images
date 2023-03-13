@@ -37,7 +37,7 @@ if [ -n "${WP_PERSIST_UPLOADS}" ]; then
     sudo install -d -o "${MY_UID}" -g "${MY_GID}" -m 0755 /workspaces/uploads
     ln -sf /workspaces/uploads /wp/wp-content/uploads
 else
-    install -d -m 0755 /wp/wp-content/uploads
+    sudo install -d -o "${MY_UID}" -g "${MY_GID}" -m 0755 /wp/wp-content/uploads
 fi
 
 MY_UID="$(id -u)"
