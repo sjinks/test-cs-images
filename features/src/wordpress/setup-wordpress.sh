@@ -8,6 +8,7 @@ fi
 : "${WP_DOMAIN:=localhost}"
 : "${WP_MULTISITE:=""}"
 : "${WP_MULTISITE_TYPE:=subdirectory}"
+: "${WP_PERSIST_UPLOADS:=""}"
 
 if [ -n "${CODESPACE_NAME}" ] && [ -n "${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}" ]; then
     WP_DOMAIN="${CODESPACE_NAME}-80.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
@@ -27,6 +28,16 @@ if [ -n "${WP_MULTISITE}" ]; then
 else
     multisite_domain=
     multisite_type=
+fi
+
+MY_UID="$(id -u)"
+MY_GID="$(id -g)"
+
+if [ -n "${WP_PERSIST_UPLOADS}" ]; then
+    sudo install -d -o "${MY_UID}" -g "${MY_GID}" -m 0755 /workspaces/uploads
+    ln -sf /workspaces/uploads /wp/wp-content/uploads
+else
+    install -d -m 0755 /wp/wp-content/uploads
 fi
 
 MY_UID="$(id -u)"

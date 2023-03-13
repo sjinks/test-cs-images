@@ -26,10 +26,9 @@ cp -a wp/* /wp && chown -R "${WEB_USER}:${WEB_USER}" /wp/* && chmod -R 0755 /wp/
 su-exec "${WEB_USER}:${WEB_USER}" wp core download --path=/wp --skip-content --version="${VERSION}"
 
 if [ "${MOVEUPLOADSTOWORKSPACES}" != 'true' ]; then
-    install -d -o "${WEB_USER}" -g "${WEB_USER}" -m 0755 /wp/wp-content/uploads
+    WP_PERSIST_UPLOADS=""
 else
-    install -d -o "${WEB_USER}" -g "${WEB_USER}" -m 0755 /workspaces/uploads
-    ln -sf /workspaces/uploads /wp/wp-content/uploads
+    WP_PERSIST_UPLOADS=1
 fi
 
 install -m 0755 -o root -g root setup-wordpress.sh /usr/local/bin/setup-wordpress.sh
@@ -43,8 +42,8 @@ else
 fi
 WP_MULTISITE_TYPE="${MULTISITE_TYPE:-subdirectory}"
 
-export WP_DOMAIN WP_MULTISITE WP_MULTISITE_TYPE
+export WP_DOMAIN WP_MULTISITE WP_MULTISITE_TYPE WP_PERSIST_UPLOADS
 # shellcheck disable=SC2016
-envsubst '$WP_DOMAIN $WP_MULTISITE $WP_MULTISITE_TYPE' < conf-wordpress.tpl > /etc/conf.d/wordpress
+envsubst '$WP_DOMAIN $WP_MULTISITE $WP_MULTISITE_TYPE $WP_PERSIST_UPLOADS' < conf-wordpress.tpl > /etc/conf.d/wordpress
 
 echo 'Done!'
