@@ -59,5 +59,38 @@
         },
         "ghcr.io/sjinks/test-cs-images/wp-cli:1": {},
         "ghcr.io/sjinks/test-cs-images/xdebug:1": {}
-    }
+    },
+    // Only enable this for VSCode
+    "mounts": [
+        {
+            "type": "volume",
+            "source": "wp-uploads",
+            "target": "/workspaces/uploads"
+        },
+        {
+            "type": "volume",
+            "source": "mysql-data",
+            "target": "/workspaces/mysql-data"
+        }
+    ],
+    // Only enable this for VSCode
+    // To run traefik:
+    // docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -p 80:80 -p 443:443 -p 8088:8080 traefik:2.8 --api.insecure=true --providers.docker=true --entrypoints.http.address=:80 --entrypoints.https.address=:443
+    "runArgs": [
+        "-l", "traefik.enable=true",
+
+        // Subdomain-based multisite
+        // "-l", "traefik.http.routers.${devcontainerId}-https.rule=HostRegexp(`${localWorkspaceFolderBasename}.lndo.site`, `{wildcard:[a-z0-9-]+}.${localWorkspaceFolderBasename}.lndo.site`)",
+        "-l", "traefik.http.routers.${devcontainerId}-https.rule=Host(`${localWorkspaceFolderBasename}.lndo.site`)",
+        "-l", "traefik.http.routers.${devcontainerId}-https.tls=",
+        "-l", "traefik.http.routers.${devcontainerId}-https.service=${devcontainerId}-service",
+
+        // Subdomain-based multisite
+        // "-l", "traefik.http.routers.${devcontainerId}-http.rule=HostRegexp(`${localWorkspaceFolderBasename}.lndo.site`, `{wildcard:[a-z0-9-]+}.${localWorkspaceFolderBasename}.lndo.site`)",
+        // Subdirectory-based multisite or single site
+        "-l", "traefik.http.routers.${devcontainerId}-http.rule=Host(`${localWorkspaceFolderBasename}.lndo.site`)",
+        "-l", "traefik.http.routers.${devcontainerId}-http.service=${devcontainerId}-service",
+
+        "-l", "traefik.http.services.${devcontainerId}-service.loadbalancer.server.port=80"
+    ]
 }
