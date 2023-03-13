@@ -40,6 +40,6 @@ fi
 install -m 0644 -o root -g root default.conf /etc/nginx/http.d/default.conf
 
 sed -i "s/user nginx;/user ${NGINX_USER};/" /etc/nginx/nginx.conf
-chown -R "${NGINX_USER}:${NGINX_USER}" /run/nginx /var/log/nginx
+chown -R "${NGINX_USER}:${NGINX_USER}" /run/nginx /var/log/nginx /var/lib/nginx
 
 echo 'Done!'
