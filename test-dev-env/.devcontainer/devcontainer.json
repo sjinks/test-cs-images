@@ -98,5 +98,12 @@
         "-l", "traefik.http.routers.${devcontainerId}-http.service=${devcontainerId}-service",
 
         "-l", "traefik.http.services.${devcontainerId}-service.loadbalancer.server.port=80"
-    ]
+    ],
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.shellIntegration.enabled": false
+            }
+        }
+    }
 }
