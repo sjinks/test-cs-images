@@ -27,6 +27,9 @@ if [ "${ENABLED}" = "true" ]; then
     sudo chown "${WEB_USER}:${WEB_USER}" /etc/conf.d/phpmyadmin-password /etc/nginx/conf.extra/.htpasswd-pma
     chmod 0600 /etc/conf.d/phpmyadmin-password /etc/nginx/conf.extra/.htpasswd-pma
 
+    echo "echo \"phpMyAdmin username: vipgo\"" >> ~/.bashrc
+    echo "echo \"phpMyAdmin password: $(cat /etc/conf.d/phpmyadmin-password)\"" >> ~/.bashrc
+
     install -m 0640 nginx-phpmyadmin.conf /etc/nginx/http.d/phpmyadmin.conf
     install -d -m 0777 -o "${WEB_USER}" -g "${WEB_USER}" /usr/share/webapps/phpmyadmin/tmp
     install -m 0640 -o "${WEB_USER}" -g "${WEB_USER}" config.inc.php /etc/phpmyadmin/config.inc.php
