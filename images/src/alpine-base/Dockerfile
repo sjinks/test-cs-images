@@ -46,13 +46,15 @@ RUN apk add --no-cache \
     mandoc man-pages \
     git \
     su-exec gettext && \
-    ln -sf /sbin/runit-init /sbin/init && \
+    ln -sf /sbin/runit-init /sbin/init
+
+ADD rootfs /
+
+RUN \
     groupadd --gid "${USER_GID}" "${USERNAME}" && \
     useradd -s /bin/bash --uid "${USER_UID}" --gid "${USER_GID}" -m "${USERNAME}" && \
     echo "${USERNAME} ALL=(root) NOPASSWD:ALL" > "/etc/sudoers.d/${USERNAME}" && \
     chmod 0440 "/etc/sudoers.d/${USERNAME}"
-
-ADD rootfs /
 
 ENV CHARSET UTF-8
 ENV LANG C.UTF-8
