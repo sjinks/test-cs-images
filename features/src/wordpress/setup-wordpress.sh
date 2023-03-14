@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 
 if [ -f /etc/conf.d/wordpress ]; then
     # shellcheck source=/dev/null
