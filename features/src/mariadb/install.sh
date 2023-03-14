@@ -17,14 +17,15 @@ else
     MARIADB_USER="${_REMOTE_USER}"
 fi
 
+apk add --no-cache mariadb-client mariadb
+
 if [ "${INSTALLDATABASETOWORKSPACES}" != 'true' ]; then
     MARIADB_DATADIR=/var/lib/mysql
 else
     MARIADB_DATADIR=/workspaces/mysql-data
+    usermod -d /workspaces/mysql mysql
+    rm -rf /var/lib/mysql
 fi
-
-apk add --no-cache mariadb-client mariadb
-rmdir /var/lib/mysql
 
 install -D -m 0755 -o root -g root service-run /etc/sv/mariadb/run
 install -d -m 0755 -o root -g root /etc/service
