@@ -12,7 +12,16 @@ permissions:
 
 jobs:
   build:
+    name: Build image ${{ matrix.image.name }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        image:
+          - name: Alpine Base
+            workspace-folder: images/src/alpine-base
+          - name: Latest WP, PHP 8.0
+            workspace-folder: images/src/wp-latest-php8
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -29,6 +38,6 @@ jobs:
       - name: Build image
         run: |
           devcontainer build \
-            --workspace-folder images/src/alpine-base \
+            --workspace-folder ${{ matrix.image.workspace-folder }} \
             --platform linux/amd64,linux/arm64 \
             --output type=image
