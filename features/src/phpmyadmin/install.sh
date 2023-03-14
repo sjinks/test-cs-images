@@ -22,7 +22,7 @@ if [ "${ENABLED}" = "true" ]; then
     install -D -d -m 0755 -o root -g root /usr/share/webapps/phpmyadmin /etc/phpmyadmin
     wget -q https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-all-languages.tar.gz -O - | tar --strip-components=1 -zxm -f - -C /usr/share/webapps/phpmyadmin
 
-    LC_ALL=C <dev/urandom tr -dc "A-Za-z0-9" | head -c 24 > /etc/conf.d/phpmyadmin-password
+    LC_ALL=C < /dev/urandom tr -dc _A-Z-a-z-0-9 2> /dev/null | head -c24 | sudo tee -i /etc/conf.d/phpmyadmin-password
     htpasswd -nim vipgo < /etc/conf.d/phpmyadmin-password > /etc/nginx/conf.extra/.htpasswd-pma
     sudo chown "${WEB_USER}:${WEB_USER}" /etc/conf.d/phpmyadmin-password /etc/nginx/conf.extra/.htpasswd-pma
     chmod 0600 /etc/conf.d/phpmyadmin-password /etc/nginx/conf.extra/.htpasswd-pma
