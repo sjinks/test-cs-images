@@ -78,6 +78,9 @@ jobs:
   publish-templates:
     name: Publish templates
     runs-on: ubuntu-latest
+    needs:
+      - publish-image
+      - publish-features
     permissions:
       contents: read
       packages: write
