@@ -14,7 +14,7 @@ permissions:
   contents: read
 
 env:
-  IMAGE_VERSION: "1.0.4"
+  IMAGE_VERSION: "1.0.5"
 
 jobs:
   publish-base-image:
