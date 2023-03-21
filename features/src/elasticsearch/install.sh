@@ -43,7 +43,7 @@ if [ "${ENABLED}" = "true" ]; then
         install -D -d -o "${ES_USER}" -g "${ES_USER}" "${ES_DATADIR}/${path}"
     done
 
-    for path in config tmp plugins; do \
+    for path in config logs tmp plugins; do \
         install -D -d -o "${ES_USER}" -g "${ES_USER}" "/opt/elasticsearch/${path}"
         chown -R "${ES_USER}:${ES_USER}" "/opt/elasticsearch/${path}"
     done
