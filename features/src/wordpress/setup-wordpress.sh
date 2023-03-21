@@ -97,6 +97,7 @@ if echo "$site_exist_check_output" | grep -Eq "(Site .* not found)|(The site you
             --admin_password="password" \
             --skip-email \
             --skip-plugins \
+            --skip-themes \
             ${type} \
             --skip-config
     else
@@ -108,7 +109,8 @@ if echo "$site_exist_check_output" | grep -Eq "(Site .* not found)|(The site you
             --admin_email="vip@localhost.local" \
             --admin_password="password" \
             --skip-email \
-            --skip-plugins
+            --skip-plugins \
+            --skip-themes
     fi
 
     wp user add-cap 1 view_query_monitor
