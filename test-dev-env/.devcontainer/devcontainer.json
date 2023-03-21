@@ -64,7 +64,11 @@
             "domain": "${localWorkspaceFolderBasename}.lndo.site"
         },
         "ghcr.io/sjinks/test-cs-images/wp-cli:1": {},
-        "ghcr.io/sjinks/test-cs-images/xdebug:1": {}
+        "ghcr.io/sjinks/test-cs-images/xdebug:1": {},
+        "ghcr.io/sjinks/test-cs-images/elasticsearch:1": {
+            "enabled": true,
+            "installDataToWorkspaces": true
+        }
     },
     // Only enable this for VSCode
     "mounts": [

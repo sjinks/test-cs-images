@@ -32,7 +32,7 @@ if [ "${ENABLED}" = "true" ]; then
     (
         set -e
         cd /tmp
-        wget -O elasticsearch.tar.gz "${ES_TARBALL}"
+        wget -q -O elasticsearch.tar.gz "${ES_TARBALL}"
         tar -xf elasticsearch.tar.gz
         mv "elasticsearch-${ES_VERSION}" /opt/elasticsearch
         rm -rf /tmp/elasticsearch.tar.gz /opt/elasticsearch/modules/x-pack-ml/platform/linux-x86_64
@@ -43,6 +43,7 @@ if [ "${ENABLED}" = "true" ]; then
     done
 
     for path in config tmp plugins; do \
+        install -D -d -o "${ES_USER}" -g "${ES_USER}" "/opt/elasticsearch/${path}"
         chown -R "${ES_USER}:${ES_USER}" "/opt/elasticsearch/${path}"
     done
 
