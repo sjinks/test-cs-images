@@ -114,6 +114,16 @@ if echo "$site_exist_check_output" | grep -Eq "(Site .* not found)|(The site you
     fi
 
     wp user add-cap 1 view_query_monitor
+
+    if [ -e /etc/service/elasticsearch ] && wp cli has-command vip-search; then
+        echo "Waiting for Elasticsearch to come online..."
+        status="$(curl -s 'http://127.0.0.1:9200/_cluster/health?wait_for_status=yellow&timeout=60s' | jq -r .status)"
+        if [ "${status}" != 'green' ] && [ "${status}" != 'yellow' ]; then
+            echo "WARNING: Elasticsearch has failed to come online"
+        fi
+
+        wp vip-search index --skip-confirm --setup
+    fi
 elif [ "$site_exist_return_value" != 0 ] ; then
     echo "ERROR: Could not find out if site exists."
     echo "$site_exist_check_output"
