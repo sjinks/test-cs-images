@@ -73,3 +73,6 @@ if ( ( ! defined( 'VIP_GO_APP_ENVIRONMENT' ) || ( defined( 'VIP_GO_APP_ENVIRONME
 	&& ! defined( 'WP_DEBUG' ) ) {
 	define( 'WP_DEBUG', true );
 }
+
+define( 'VIP_ENABLE_VIP_SEARCH', true );
+define( 'VIP_ENABLE_VIP_SEARCH_QUERY_INTEGRATION', true );
