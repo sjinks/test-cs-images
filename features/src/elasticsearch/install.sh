@@ -39,10 +39,7 @@ if [ "${ENABLED}" = "true" ]; then
         rm -rf /tmp/elasticsearch.tar.gz /opt/elasticsearch/modules/x-pack-ml/platform/linux-x86_64
     )
 
-    for path in data logs; do
-        install -D -d -o "${ES_USER}" -g "${ES_USER}" "${ES_DATADIR}/${path}"
-    done
-
+    install -D -d -o "${ES_USER}" -g "${ES_USER}" "${ES_DATADIR}/data"
     for path in config logs tmp plugins; do \
         install -D -d -o "${ES_USER}" -g "${ES_USER}" "/opt/elasticsearch/${path}"
         chown -R "${ES_USER}:${ES_USER}" "/opt/elasticsearch/${path}"

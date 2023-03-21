@@ -6,4 +6,3 @@ xpack.ml.enabled: false
 xpack.security.enabled: false
 
 path.data: ${ES_DATADIR}/data
-path.logs: ${ES_DATADIR}/logs
