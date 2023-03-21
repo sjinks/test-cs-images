@@ -60,7 +60,7 @@ if [ "${ENABLED}" = "true" ]; then
 
     export ES_USER
     # shellcheck disable=SC2016
-    envsubst '$ES_DATADIR' '$ES_USER' < service-run.tpl > /etc/sv/elasticsearch/run
+    envsubst '$ES_DATADIR $ES_USER' < service-run.tpl > /etc/sv/elasticsearch/run
     chmod 0755 /etc/sv/elasticsearch/run
 
     install -d -m 0755 -o root -g root /etc/service
