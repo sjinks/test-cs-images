@@ -27,6 +27,7 @@ if [ "${ENABLED}" = "true" ]; then
         ES_DATADIR=/opt/elasticsearch
     else
         ES_DATADIR=/workspaces/es-data
+        install -D -d -m 0755 -o "${ES_USER}" -g "${ES_USER}" "${ES_DATADIR}"
     fi
 
     (
