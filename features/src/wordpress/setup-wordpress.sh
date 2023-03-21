@@ -33,6 +33,19 @@ fi
 MY_UID="$(id -u)"
 MY_GID="$(id -g)"
 
+if [ -n "${RepositoryName}" ]; then
+    base=/workspaces/${RepositoryName}
+else
+    base=$(pwd)
+fi
+
+for i in client-mu-plugins images languages plugins themes vip-config; do
+    if [ -e "${base}/${i}" ]; then
+        sudo rm -rf "/wp/wp-content/${i}"
+        sudo ln -sf "${base}/${i}" "/wp/wp-content/${i}"
+    fi
+done
+
 if [ -n "${WP_PERSIST_UPLOADS}" ]; then
     sudo install -d -o "${MY_UID}" -g "${MY_GID}" -m 0755 /workspaces/uploads
     ln -sf /workspaces/uploads /wp/wp-content/uploads
@@ -130,16 +143,3 @@ elif [ "$site_exist_return_value" != 0 ] ; then
 else
     echo "WordPress already installed"
 fi
-
-if [ -n "${RepositoryName}" ]; then
-    base=/workspaces/${RepositoryName}
-else
-    base=$(pwd)
-fi
-
-for i in client-mu-plugins images languages plugins themes vip-config; do
-    if [ -e "${base}/${i}" ]; then
-        sudo rm -rf "/wp/wp-content/${i}"
-        sudo ln -sf "${base}/${i}" "/wp/wp-content/${i}"
-    fi
-done
